@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import GameAlternatives from './components/GameAlternatives.vue'
 
 const gameFinished = ref(false)
 const alternative = ref('')
@@ -24,21 +25,30 @@ function resetGame() {
     b.classList.remove('vald')
   }
 }
-function setWinnerInfo(player, computer) {
-  let p = alternatives.value.indexOf(player)
-  let c = alternatives.value.indexOf(computer)
-  if (p === c) {
+function setWinnerInfo(winner) {
+  if (winner === 'draw') {
     winnerInfo.value = "It's a draw!"
-  } else if ((p + 1) % alternatives.value.length === c) {
+  } else if (winner === 'user') {
     winnerInfo.value = 'Du vann, du fuskade säkert :('
   } else {
     winnerInfo.value = 'Än en gång besegrade maskinen människan!'
   }
 }
+function setUserAlternative(alt) {
+  alternative.value = alt
+}
+function setComputerAlternative(alt) {
+  compAlternative.value = alt
+}
 </script>
 
 <template>
   <h1>Sten Sax Påse</h1>
+  <GameAlternatives
+    @user-choice="setUserAlternative"
+    @computer-choice="setComputerAlternative"
+    @winner="setWinnerInfo"
+  />
   <ul>
     <li v-for="alt in alternatives" @click="alternativeChosen" class="button">{{ alt }}</li>
   </ul>
