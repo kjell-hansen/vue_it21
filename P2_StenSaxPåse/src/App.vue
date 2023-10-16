@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import GameAlternatives from './components/GameAlternatives.vue'
 import GameScore from './components/GameScore.vue'
+import GameResult from './components/GameResult.vue'
 
 const alternative = ref('')
 const compAlternative = ref('')
@@ -36,6 +37,7 @@ function setComputerAlternative(alt) {
     :computer-alternative="compAlternative"
     :winner-info="winnerInfo"
   />
+  <GameResult />
 </template>
 
 <style scoped>
