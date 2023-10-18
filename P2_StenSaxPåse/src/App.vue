@@ -7,11 +7,15 @@ import GameResult from './components/GameResult.vue'
 const alternative = ref('')
 const compAlternative = ref('')
 const winnerInfo = ref('')
+const winner = ref('')
+const round = ref(0) // Vi behöver räkna omgångarna
 
-function setWinnerInfo(winner) {
-  if (winner === 'draw') {
+function setWinnerInfo(_winner) {
+  winner.value = _winner
+  round.value++ // Öka räknaren för omgång
+  if (_winner === 'draw') {
     winnerInfo.value = "It's a draw!"
-  } else if (winner === 'user') {
+  } else if (_winner === 'user') {
     winnerInfo.value = 'Du vann, du fuskade säkert :('
   } else {
     winnerInfo.value = 'Än en gång besegrade maskinen människan!'
@@ -37,7 +41,7 @@ function setComputerAlternative(alt) {
     :computer-alternative="compAlternative"
     :winner-info="winnerInfo"
   />
-  <GameResult />
+  <GameResult :result="{ round, winner }" />
 </template>
 
 <style scoped>
