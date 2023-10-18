@@ -18,11 +18,12 @@ watch(prop, () => {
 <template>
   <div v-if="computerScore || userScore">
     <span id="userScore">
-      <span class="score"> {{ userScore }} </span>
-      <p>User</p>
+      <span :class="userScore > computerScore ? 'leader score' : 'score'"> {{ userScore }} </span>
+      <p v-if="computerScore > userScore">Loser</p>
+      <p v-else>User</p>
     </span>
     <span id="computerScore">
-      <span class="score">{{ computerScore }}</span>
+      <span :class="userScore < computerScore ? 'leader score' : 'score'">{{ computerScore }}</span>
       <p>Computer</p>
     </span>
   </div>
@@ -44,6 +45,10 @@ div {
   display: inline-block;
   text-align: center;
   margin: 0.2em;
+}
+.leader {
+  color: wheat;
+  font-size: 5em;
 }
 p {
   text-align: center;
