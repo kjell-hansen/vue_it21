@@ -1,7 +1,7 @@
 <script setup>
 import { ref, defineEmits } from 'vue'
 const emit = defineEmits(['user-choice', 'computer-choice', 'winner'])
-const alternatives = ref(['Sten', 'Sax', 'Påse'])
+const alternatives = ref(['Scissors', 'Paper', 'Rock', 'Lizard', 'Spock'])
 
 function alternativeChosen(e) {
   let buttons = document.getElementsByClassName('button')
@@ -38,15 +38,14 @@ function determineWinner() {
     }
   }
 
-  if (computerButton === userButton) {
+  let computerIndex = alternatives.value.indexOf(computerButton)
+  let userIndex = alternatives.value.indexOf(userButton)
+  if (computerIndex === userIndex) {
     emit('winner', 'draw')
-  } else if (
-    (alternatives.value.indexOf(computerButton) + 1) % alternatives.value.length ===
-    alternatives.value.indexOf(userButton)
-  ) {
-    emit('winner', 'computer')
+  } else if (computerIndex % 2 === userIndex % 2) {
+    emit('winner', computerIndex > userIndex ? 'computer' : 'user')
   } else {
-    emit('winner', 'user')
+    emit('winner', computerIndex < userIndex ? 'computer' : 'user')
   }
 }
 </script>
