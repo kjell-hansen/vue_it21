@@ -1,4 +1,5 @@
 <script setup>
+import weatherCodes from '../assets/weatherCodes'
 const props = defineProps(['weatherData'])
 </script>
 
@@ -8,7 +9,12 @@ const props = defineProps(['weatherData'])
       Datum: <span class="data">{{ props.weatherData.date }}</span>
     </p>
     <p>
-      Vädret väntas bli <span class="data">{{ props.weatherData.weatherCondition }}</span>
+      Vädret väntas bli:
+      <span class="data">{{
+        weatherCodes.find((itm) => {
+          return itm.code == props.weatherData.weatherCondition
+        }).text
+      }}</span>
     </p>
     <p>
       Temp: <span class="data">{{ props.weatherData.minTemp }}</span> -

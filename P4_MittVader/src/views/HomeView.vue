@@ -1,13 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import WeatherCard from '../components/WeatherCard.vue'
+const props = defineProps(['location'])
+const positions = ref([])
 
-const weatherAPI = ref(
-  'https://api.open-meteo.com/v1/forecast?latitude=60.0973&longitude=19.9348&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,winddirection_10m_dominant&windspeed_unit=ms&timezone=auto'
-)
 const weatherInfo = ref([])
 onMounted(() => {
-  fetch(weatherAPI.value)
+  positions.value = JSON.parse(localStorage.getItem('positions'))
+  let position =
+    positions.value.find((pos) => {
+      return pos.location === props.location
+    }) || positions.value[0]
+  let weatherAPI = `https://api.open-meteo.com/v1/forecast?latitude=${position.lat}&longitude=${position.long}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,winddirection_10m_dominant&windspeed_unit=ms&timezone=auto`
+  fetch(weatherAPI)
     .then((response) => {
       if (response.status === 200) {
         return response.json()
@@ -30,7 +35,6 @@ onMounted(() => {
         wd.windSpeed = data.daily.windspeed_10m_max[index]
         weatherInfo.value.push(wd)
       }
-      console.log('Hurra!!', weatherInfo)
     })
 })
 </script>
