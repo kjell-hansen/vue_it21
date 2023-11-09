@@ -7,16 +7,12 @@ const categories = ref([])
 
 onMounted(() => {
   APIService.get('categories').then((data) => {
-    let apiCalls = []
     for (const itm of data) {
-      apiCalls.push(APIService.get('categories/' + itm.id))
+      APIService.get('categories/' + itm.id).then((cat) => {
+        itm.postCount = cat.count
+        categories.value.push(itm)
+      })
     }
-    Promise.all(apiCalls).then((values) => {
-      for (let index in data) {
-        data[index].postCount = values[index].count
-      }
-      categories.value = data
-    })
   })
 })
 </script>
