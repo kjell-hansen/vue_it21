@@ -15,7 +15,16 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/Categories.vue')
+      component: () => import('../views/CategoriesView.vue')
+    },
+    {
+      path: '/Category/:slug',
+      name: 'Category',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/CategoryView.vue'),
+      props: true
     },
     {
       path: '/Posts',
