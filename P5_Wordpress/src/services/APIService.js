@@ -2,13 +2,13 @@ export default new (class APIService {
   constructor() {
     this.apiBase = 'https://www.datanom.ax/~kjell/ox2/wp-json/wp/v2/'
     this.apiBase = 'https://www.asf.ax/wp-json/wp/v2/'
-    //this.apiBase = 'https://www.datanom.ax/~jimmy/wplatest/wp-json/wp/v2/'
+    //    this.apiBase = 'https://www.datanom.ax/~jimmy/wplatest/wp-json/wp/v2/'
+    //    this.apiBase = 'https://www.datanom.ax/wp-json/wp/v2/'
   }
 
   get(params) {
     return new Promise((resolve, reject) => {
       // Hämta data från endpointen
-      console.log(this.apiBase + params)
       fetch(this.apiBase + params, {
         method: 'GET'
         //        credentials: 'include'
