@@ -23,7 +23,12 @@ onMounted(() => {
 <template>
   <main>
     <h1>Authors</h1>
-    <div v-for="auth in authors" :key="auth" @click="$router.push('/Author/' + auth.slug)">
+    <div
+      v-for="auth in authors"
+      :key="auth"
+      @click="$router.push('/Author/' + auth.slug)"
+      class="excerpt"
+    >
       <h2>{{ auth.name }}</h2>
       <p>
         <span class="intense">id:</span>&nbsp;<span>{{ auth.id }}</span>
@@ -35,3 +40,12 @@ onMounted(() => {
     </div>
   </main>
 </template>
+<style scoped>
+.intense {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.excerpt {
+  cursor: pointer;
+}
+</style>
