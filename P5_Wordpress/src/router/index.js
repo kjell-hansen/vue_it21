@@ -42,6 +42,14 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/PostView.vue'),
       props: true
+    },
+    {
+      path: '/Authors',
+      name: 'Authors',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AuthorsView.vue')
     }
   ]
 })

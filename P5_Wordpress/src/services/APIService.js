@@ -27,6 +27,27 @@ export default new (class APIService {
     })
   }
 
+  head(params) {
+    return new Promise((resolve, reject) => {
+      // Hämta data från endpointen
+      fetch(this.apiBase + params, {
+        method: 'HEAD'
+        //        credentials: 'include'
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            resolve(response.headers)
+          } else {
+            throw response.text()
+          }
+        })
+        .catch((err) => {
+          // Något gick fel
+          reject(err)
+        })
+    })
+  }
+
   post(params, object = {}) {
     return new Promise((resolve, reject) => {
       let formData = new FormData()
