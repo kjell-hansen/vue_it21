@@ -9,7 +9,6 @@ onMounted(() => {
     response.map((auth) => {
       APIService.head('posts?author=' + auth.id).then((head) => {
         auth.postCount = head.get('X-WP-Total')
-        console.log(auth)
         authors.value.push(auth)
         authors.value.sort((a, b) => {
           return a.id > b.id ? 1 : -1
