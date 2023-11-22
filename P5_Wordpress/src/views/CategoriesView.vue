@@ -1,19 +1,11 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed } from 'vue'
 import router from '../router'
-import APIService from '../services/APIService.js'
+import { useCategoriesStore } from '../stores/CategoriesStore'
 
-const categories = ref([])
-
-onMounted(() => {
-  APIService.get('categories').then((data) => {
-    for (const itm of data) {
-      APIService.get('categories/' + itm.id).then((cat) => {
-        itm.postCount = cat.count
-        categories.value.push(itm)
-      })
-    }
-  })
+const catStore = useCategoriesStore()
+const categories = computed(() => {
+  return catStore.categories
 })
 </script>
 

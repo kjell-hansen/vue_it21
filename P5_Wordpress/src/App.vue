@@ -1,5 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useCategoriesStore } from './stores/CategoriesStore'
+import { onMounted } from 'vue'
+
+const categoriesStore = useCategoriesStore()
+
+onMounted(() => {
+  categoriesStore.fetchCategories()
+})
 </script>
 
 <template>
