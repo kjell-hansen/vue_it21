@@ -2,11 +2,14 @@
 import { RouterLink, RouterView } from 'vue-router'
 import { useCategoriesStore } from './stores/CategoriesStore'
 import { onMounted } from 'vue'
+import { useAuthorsStore } from './stores/AuthorsStore'
 
 const categoriesStore = useCategoriesStore()
+const authorsStore = useAuthorsStore()
 
 onMounted(() => {
   categoriesStore.fetchCategories()
+  authorsStore.fetchAuthors()
 })
 </script>
 

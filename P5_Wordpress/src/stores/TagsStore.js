@@ -26,7 +26,7 @@ export const useTagsStore = defineStore('tags', {
           return a.name > b.name ? 1 : -1
         })
       } catch (error) {
-        console.console.log(error)
+        console.log(error)
       }
     }
   }

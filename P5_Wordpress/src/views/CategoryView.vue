@@ -3,9 +3,13 @@ import { computed, onMounted, ref } from 'vue'
 import router from '../router'
 import APIService from '../services/APIService'
 import { useCategoriesStore } from '../stores/CategoriesStore'
+import { useAuthorsStore } from '../stores/AuthorsStore'
 
 const props = defineProps(['slug'])
-const authors = ref([])
+const authorsStore = useAuthorsStore()
+const authors = computed(() => {
+  return authorsStore.authors
+})
 const catStore = useCategoriesStore()
 const categories = computed(() => {
   return catStore.categories
@@ -13,20 +17,13 @@ const categories = computed(() => {
 const posts = ref([])
 
 onMounted(() => {
-  let req = []
-  req.push(APIService.get('users'))
-  Promise.all(req).then((responses) => {
-    authors.value = responses[0].map((itm) => {
-      return new Object({ id: itm.id, name: itm.name, slug: itm.slug })
-    })
-    APIService.get(
-      'posts?categories=' + categories.value.find((itm) => itm.slug === props.slug)?.id ?? 1
-    ).then((response) => {
-      posts.value = response.map((itm) => {
-        let d = new Date(itm.date)
-        itm.date = d.toLocaleDateString()
-        return itm
-      })
+  APIService.get(
+    'posts?categories=' + categories.value.find((itm) => itm.slug === props.slug)?.id ?? 1
+  ).then((response) => {
+    posts.value = response.map((itm) => {
+      let d = new Date(itm.date)
+      itm.date = d.toLocaleDateString()
+      return itm
     })
   })
 })

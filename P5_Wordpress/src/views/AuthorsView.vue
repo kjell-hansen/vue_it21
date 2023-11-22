@@ -1,21 +1,10 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import APIService from '../services/APIService'
+import { computed } from 'vue'
+import { useAuthorsStore } from '../stores/AuthorsStore'
 
-const authors = ref([])
-
-onMounted(() => {
-  APIService.get('users').then((response) => {
-    response.map((auth) => {
-      APIService.head('posts?author=' + auth.id).then((head) => {
-        auth.postCount = head.get('X-WP-Total')
-        authors.value.push(auth)
-        authors.value.sort((a, b) => {
-          return a.id > b.id ? 1 : -1
-        })
-      })
-    })
-  })
+const authorsStore = useAuthorsStore()
+const authors = computed(() => {
+  return authorsStore.authors
 })
 </script>
 

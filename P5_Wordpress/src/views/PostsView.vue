@@ -3,8 +3,12 @@ import { computed, onMounted, ref } from 'vue'
 import router from '../router'
 import APIService from '../services/APIService'
 import { useCategoriesStore } from '../stores/CategoriesStore'
+import { useAuthorsStore } from '../stores/AuthorsStore'
 
-const authors = ref([])
+const authorsStore = useAuthorsStore()
+const authors = computed(() => {
+  return authorsStore.authors
+})
 const catStore = useCategoriesStore()
 const categories = computed(() => {
   return catStore.categories
@@ -14,15 +18,11 @@ const posts = ref([])
 
 onMounted(() => {
   let req = []
-  req.push(APIService.get('users'))
   req.push(APIService.get('tags?per_page=100'))
   req.push(APIService.get('posts'))
   Promise.all(req).then((responses) => {
-    authors.value = responses[0].map((itm) => {
-      return new Object({ id: itm.id, name: itm.name, slug: itm.slug })
-    })
-    tags.value = responses[1]
-    posts.value = responses[2]
+    tags.value = responses[0]
+    posts.value = responses[1]
   })
 })
 </script>
