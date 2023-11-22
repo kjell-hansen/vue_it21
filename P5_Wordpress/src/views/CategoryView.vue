@@ -1,22 +1,22 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import router from '../router'
 import APIService from '../services/APIService'
+import { useCategoriesStore } from '../stores/CategoriesStore'
 
 const props = defineProps(['slug'])
 const authors = ref([])
-const categories = ref([])
+const catStore = useCategoriesStore()
+const categories = computed(() => {
+  return catStore.categories
+})
 const posts = ref([])
 
 onMounted(() => {
   let req = []
-  req.push(APIService.get('categories'))
   req.push(APIService.get('users'))
   Promise.all(req).then((responses) => {
-    categories.value = responses[0].map((itm) => {
-      return new Object({ id: itm.id, name: itm.name, slug: itm.slug })
-    })
-    authors.value = responses[1].map((itm) => {
+    authors.value = responses[0].map((itm) => {
       return new Object({ id: itm.id, name: itm.name, slug: itm.slug })
     })
     APIService.get(
