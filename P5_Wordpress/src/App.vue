@@ -1,22 +1,29 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { useCategoriesStore } from './stores/CategoriesStore'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useAuthorsStore } from './stores/AuthorsStore'
 
 const categoriesStore = useCategoriesStore()
 const authorsStore = useAuthorsStore()
-
+const loading = ref(true)
 onMounted(() => {
-  categoriesStore.fetchCategories()
-  authorsStore.fetchAuthors()
+  let req = []
+  req.push(categoriesStore.fetchCategories())
+  req.push(authorsStore.fetchAuthors())
+  Promise.all(req).then(() => {
+    loading.value = false
+  })
 })
 </script>
 
 <template>
-  <header>
+  <div v-if="loading" class="loading">
+    <img alt="loading" src="@/assets/ox2-flow.gif" width="125" />
+  </div>
+  <header v-if="!loading">
     <img
-      alt="Vue logo"
+      alt="OX2logo"
       class="logo"
       src="@/assets/logo.png"
       width="125"
@@ -28,7 +35,7 @@ onMounted(() => {
       "
     />
 
-    <div class="wrapper">
+    <div v-if="!loading" class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/Categories">Categories</RouterLink>
@@ -38,7 +45,7 @@ onMounted(() => {
     </div>
   </header>
 
-  <RouterView />
+  <RouterView v-if="!loading" />
 </template>
 
 <style scoped>
@@ -105,5 +112,11 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
+}
+.loading {
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
 }
 </style>

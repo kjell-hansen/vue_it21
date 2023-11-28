@@ -20,7 +20,7 @@ export const useAuthorsStore = defineStore('authors', {
           for (let index = 1; index <= head.get('X-WP-TotalPages'); index++) {
             let data = await APIService.get('users?per_page=100&page=' + index)
             for (let itm of data) {
-              let head = await APIService.head('?author=' + itm.id)
+              let head = await APIService.head('posts?author=' + itm.id)
               itm.postCount = head.get('X-WP-Total')
             }
             this.authors = [...this.authors, ...data]
