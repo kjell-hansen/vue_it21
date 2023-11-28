@@ -2,6 +2,7 @@ export default new (class APIService {
   constructor() {
     this.apiBase = 'https://www.datanom.ax/~kjell/ox2/wp-json/wp/v2/'
     this.apiBase = 'https://www.asf.ax/wp-json/wp/v2/'
+    // this.apiBase = 'https://itsax.ddns.net/woop/wp-json/wp/v2/'
     //    this.apiBase = 'https://www.datanom.ax/~jimmy/wplatest/wp-json/wp/v2/'
     //    this.apiBase = 'https://www.datanom.ax/wp-json/wp/v2/'
   }

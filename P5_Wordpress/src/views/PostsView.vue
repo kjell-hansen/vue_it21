@@ -4,6 +4,7 @@ import router from '../router'
 import APIService from '../services/APIService'
 import { useCategoriesStore } from '../stores/CategoriesStore'
 import { useAuthorsStore } from '../stores/AuthorsStore'
+import { useTagsStore } from '../stores/TagsStore'
 
 const authorsStore = useAuthorsStore()
 const authors = computed(() => {
@@ -13,16 +14,15 @@ const catStore = useCategoriesStore()
 const categories = computed(() => {
   return catStore.categories
 })
-const tags = ref([])
+const tagStore = useTagsStore()
+const tags = computed(() => {
+  return tagStore.tags
+})
 const posts = ref([])
 
 onMounted(() => {
-  let req = []
-  req.push(APIService.get('tags?per_page=100'))
-  req.push(APIService.get('posts'))
-  Promise.all(req).then((responses) => {
-    tags.value = responses[0]
-    posts.value = responses[1]
+  APIService.get('posts').then((response) => {
+    posts.value = response
   })
 })
 </script>

@@ -11,14 +11,13 @@ export const useTagsStore = defineStore('tags', {
     }
   },
   actions: {
-    async fetchCategories() {
+    async fetchTags() {
       try {
         let head = await APIService.head('tags?per_page=100')
         if (head.get('X-WP-Total') !== this.tags.count) {
-          console.log(head.get('X-WP-Total'), this.tags.count)
           this.tags = []
           for (let index = 1; index <= head.get('X-WP-TotalPages'); index++) {
-            let data = await APIService.get('categories?per_page=100&page=' + index)
+            let data = await APIService.get('tags?per_page=100&page=' + index)
             this.tags = [...this.tags, ...data]
           }
         }

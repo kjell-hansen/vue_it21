@@ -3,14 +3,18 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useCategoriesStore } from './stores/CategoriesStore'
 import { onMounted, ref } from 'vue'
 import { useAuthorsStore } from './stores/AuthorsStore'
+import { useTagsStore } from './stores/TagsStore'
 
 const categoriesStore = useCategoriesStore()
 const authorsStore = useAuthorsStore()
+const tagsStore = useTagsStore()
+
 const loading = ref(true)
 onMounted(() => {
   let req = []
   req.push(categoriesStore.fetchCategories())
   req.push(authorsStore.fetchAuthors())
+  req.push(tagsStore.fetchTags())
   Promise.all(req).then(() => {
     loading.value = false
   })

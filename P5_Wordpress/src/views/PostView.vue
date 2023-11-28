@@ -2,27 +2,29 @@
 import { computed, onMounted, ref } from 'vue'
 import APIService from '../services/APIService'
 import { useCategoriesStore } from '../stores/CategoriesStore'
+import { useAuthorsStore } from '../stores/AuthorsStore'
+import { useTagsStore } from '../stores/TagsStore'
 
 const props = defineProps(['slug'])
 const post = ref({})
+const authorsStore = useAuthorsStore()
+const authors = computed(() => {
+  return authorsStore.authors
+})
 const catStore = useCategoriesStore()
 const categories = computed(() => {
   return catStore.categories
 })
-const authors = ref([])
-const tags = ref([])
+const tagStore = useTagsStore()
+const tags = computed(() => {
+  return tagStore.tags
+})
+
 const loaded = ref(false)
 
 onMounted(() => {
-  let reqs = []
-  reqs.push(APIService.get('users'))
-  reqs.push(APIService.get('tags?per_page=100'))
-  reqs.push(APIService.get('posts?slug=' + props.slug))
-
-  Promise.all(reqs).then((responses) => {
-    authors.value = responses[0]
-    tags.value = responses[1]
-    post.value = responses[2][0]
+  APIService.get('posts?slug=' + props.slug).then((response) => {
+    post.value = response[0]
     loaded.value = true
   })
 })
