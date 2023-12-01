@@ -27,6 +27,17 @@ const router = createRouter({
       props: true
     },
     {
+      path: '/Tags',
+      name: 'Tags',
+      component: () => import('../views/TagsView.vue')
+    },
+    {
+      path: '/Tag/:slug',
+      name: 'Tag',
+      component: () => import('../views/TagView.vue'),
+      props: true
+    },
+    {
       path: '/Posts',
       name: 'Posts',
       // route level code-splitting

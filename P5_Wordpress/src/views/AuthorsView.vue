@@ -22,7 +22,7 @@ const authors = computed(() => {
         <span class="intense">id:</span>&nbsp;<span>{{ auth.id }}</span>
       </p>
       <p>
-        <span class="intense">postCount:</span>&nbsp;<span>{{ auth.postCount }}</span>
+        <span class="intense">postcount:</span>&nbsp;<span>{{ auth.count }}</span>
       </p>
       <hr />
     </div>

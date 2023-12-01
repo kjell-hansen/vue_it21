@@ -18,10 +18,6 @@ export const useCategoriesStore = defineStore('categories', {
           this.categories = []
           for (let index = 1; index <= head.get('X-WP-TotalPages'); index++) {
             let data = await APIService.get('categories?per_page=100&page=' + index)
-            for (let itm of data) {
-              let cat = await APIService.get('categories/' + itm.id)
-              itm.postCount = cat.count
-            }
             this.categories = [...this.categories, ...data]
           }
         }

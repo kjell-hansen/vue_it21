@@ -15,7 +15,7 @@ const categories = computed(() => {
     <div v-for="itm in categories" :key="itm" @click="router.push('Category/' + itm.slug)">
       <h2>{{ itm.name }}</h2>
       <p>
-        Antal poster: <span class="">{{ itm.postCount }}</span
+        Antal poster: <span class="">{{ itm.count }}</span
         ><br />
         {{ itm.description }}
       </p>

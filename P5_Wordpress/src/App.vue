@@ -43,6 +43,7 @@ onMounted(() => {
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/Categories">Categories</RouterLink>
+        <RouterLink to="/Tags">Tags</RouterLink>
         <RouterLink to="/Posts">Posts</RouterLink>
         <RouterLink to="/Authors">Authors</RouterLink>
       </nav>
