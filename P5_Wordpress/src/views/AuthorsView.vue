@@ -29,14 +29,14 @@ const authors = computed(() => {
   </main>
 </template>
 <style scoped>
-div:nth-child(odd) {
-  background-color: beige;
-}
 .intense {
   font-weight: bold;
   text-decoration: underline;
 }
 .excerpt {
   cursor: pointer;
+}
+.excerpt:nth-child(odd) {
+  background-color: beige;
 }
 </style>
