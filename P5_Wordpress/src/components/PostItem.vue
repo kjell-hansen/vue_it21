@@ -4,6 +4,7 @@ import router from '../router'
 import { useCategoriesStore } from '../stores/CategoriesStore'
 import { useAuthorsStore } from '../stores/AuthorsStore'
 import { useTagsStore } from '../stores/TagsStore'
+import { RouterLink } from 'vue-router'
 
 const props = defineProps(['postitem'])
 const authorsStore = useAuthorsStore()
@@ -33,34 +34,40 @@ const tags = computed(() => {
   />
   <p>
     <span class="intense">Författare:</span>&nbsp;
-    <a
+    <RouterLink
       v-if="
         authors.find((aut) => {
           return aut.id === props.postitem.author
         })
       "
-      :href="'/Author/' + authors.find((aut) => aut.id === props.postitem.author).slug"
+      :to="'/Author/' + authors.find((aut) => aut.id === props.postitem.author).slug"
       >{{
         authors.find((aut) => {
           return aut.id === props.postitem.author
         })?.name ?? props.postitem.author
       }}
-    </a>
+    </RouterLink>
   </p>
   <p>
     <span class="intense">Kategorier:</span>&nbsp;
     <span v-for="cat in props.postitem.categories" :key="cat">
-      <a
+      <RouterLink
         v-if="categories.find((itm) => itm.id === cat)"
-        :href="categories.find((itm) => itm.id === cat)?.slug ?? ''"
-        >{{ categories.find((itm) => itm.id === cat)?.name ?? '' }}</a
-      >&nbsp;
+        :to="'/Category/' + categories.find((itm) => itm.id === cat)?.slug ?? ''"
+        >{{ categories.find((itm) => itm.id === cat)?.name ?? '' }}</RouterLink
+      >
+      <span v-else>{{ categories.find((itm) => itm.id === cat)?.name ?? '' }}</span>
+      &nbsp;
     </span>
   </p>
   <p>
     <span class="intense">Tags:</span>&nbsp;
-    <span v-for="tag in props.postitem.tags" :key="tag"
-      >{{ tags.find((itm) => itm.id === tag)?.name + ' ' ?? tag + ' ' }}
+    <span v-for="tag in props.postitem.tags" :key="tag">
+      <RouterLink
+        :to="'/Tag/' + tags.find((itm) => itm.id === tag)?.slug"
+        v-if="tags.find((itm) => itm.id === tag)"
+        >{{ tags.find((itm) => itm.id === tag)?.name ?? tag }}</RouterLink
+      >&nbsp;
     </span>
   </p>
 </template>

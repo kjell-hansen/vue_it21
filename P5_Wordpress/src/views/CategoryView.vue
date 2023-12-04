@@ -13,7 +13,7 @@ const posts = ref([])
 
 onMounted(() => {
   APIService.get(
-    'posts?categories=' + categories.value.find((itm) => itm.slug === props.slug)?.id ?? 1
+    'posts?categories=' + categories.value.find((itm) => itm.slug === props.slug)?.id
   ).then((response) => {
     posts.value = response.map((itm) => {
       let d = new Date(itm.date)

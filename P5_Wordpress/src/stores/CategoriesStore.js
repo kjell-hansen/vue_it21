@@ -24,6 +24,7 @@ export const useCategoriesStore = defineStore('categories', {
         this.categories.sort((a, b) => {
           return a.name > b.name ? 1 : -1
         })
+        console.log('Categories fetched')
       } catch (error) {
         console.log(error)
       }
