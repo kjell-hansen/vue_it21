@@ -21,10 +21,16 @@ onMounted(() => {
     return a.count < b.count ? 1 : -1
   })
   // Visa bara de 100 taggarna med flest inlägg
-  showTags.value = tags.value.slice(0, 100)
+  let tmp = tags.value.slice(0, 100)
 
   // Sortera i slumpmässig ordning
-  showTags.value.sort(() => Math.random() - 0.5)
+  showTags.value = []
+  while (tmp.length > 0) {
+    let index = Math.floor(tmp.length * Math.random())
+    let itm = tmp.at(index)
+    tmp.splice(index, 1)
+    showTags.value.push(itm)
+  }
 })
 </script>
 
@@ -43,7 +49,7 @@ onMounted(() => {
 .cloud {
   margin: 0.5em;
   border: 2px solid lightgray;
-  border-radius: 10%;
+  border-radius: 5em;
   background-color: bisque;
   padding: 0.5em;
   text-align: center;

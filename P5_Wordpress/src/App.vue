@@ -23,21 +23,24 @@ onMounted(() => {
 
 <template>
   <div v-if="loading" class="loading">
-    <img alt="loading" src="@/assets/ox2-flow.gif" width="125" />
+    <p>
+      <img alt="loading" src="@/assets/ox2-flow.gif" width="125" /><br />
+      Loading metadata
+    </p>
   </div>
   <header v-if="!loading">
     <img alt="OX2logo" class="logo" src="@/assets/logo.png" width="125" height="125" @click="() => {
-        $router.push('/')
-      }
+      $router.push('/')
+    }
       " />
 
     <div v-if="!loading" class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/Authors">Authors</RouterLink>
         <RouterLink to="/Categories">Categories</RouterLink>
         <RouterLink to="/Tags">Tags</RouterLink>
         <RouterLink to="/Posts">Posts</RouterLink>
-        <RouterLink to="/Authors">Authors</RouterLink>
       </nav>
     </div>
   </header>
