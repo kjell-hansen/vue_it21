@@ -5,69 +5,60 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      // Hemvyn
       path: '/',
       name: 'home',
       component: HomeView
     },
     {
+      // Vyn för kategorier
       path: '/Categories',
       name: 'Categories',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/CategoriesView.vue')
     },
     {
+      // Vy för att visa alla poster för en viss kategori
       path: '/Category/:slug',
       name: 'Category',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/CategoryView.vue'),
       props: true
     },
     {
+      // Vy för alla taggar
       path: '/Tags',
       name: 'Tags',
       component: () => import('../views/TagsView.vue')
     },
     {
+      // Vy för att visa alla poster för en viss tagg
       path: '/Tag/:slug',
       name: 'Tag',
       component: () => import('../views/TagView.vue'),
       props: true
     },
     {
+      // Vy för att visa alla inlägg
       path: '/Posts',
       name: 'Posts',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/PostsView.vue')
     },
     {
+      // Vy för att visa ett enskilt inlägg
       path: '/Post/:slug',
       name: 'Post',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/PostView.vue'),
       props: true
     },
     {
+      // Vy för att visa alla författare
       path: '/Authors',
       name: 'Authors',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AuthorsView.vue')
     },
     {
+      // Vy för att visa alla inlägg för en viss författare
       path: '/Author/:slug',
       name: 'Author',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AuthorView.vue'),
       props: true
     }
