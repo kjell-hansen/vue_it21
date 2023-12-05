@@ -26,18 +26,10 @@ onMounted(() => {
     <img alt="loading" src="@/assets/ox2-flow.gif" width="125" />
   </div>
   <header v-if="!loading">
-    <img
-      alt="OX2logo"
-      class="logo"
-      src="@/assets/logo.png"
-      width="125"
-      height="125"
-      @click="
-        () => {
-          $router.push('/')
-        }
-      "
-    />
+    <img alt="OX2logo" class="logo" src="@/assets/logo.png" width="125" height="125" @click="() => {
+        $router.push('/')
+      }
+      " />
 
     <div v-if="!loading" class="wrapper">
       <nav>
@@ -117,11 +109,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
-.loading {
-  display: flex;
-  height: 70vh;
-  justify-content: center;
-  align-items: center;
 }
 </style>

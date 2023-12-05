@@ -7,3 +7,9 @@
   height: 100vh;
   font-weight: normal;
 }
+.loading {
+  display: flex;
+  height: 70vh;
+  justify-content: center;
+  align-items: center;
+}

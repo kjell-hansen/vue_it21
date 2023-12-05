@@ -56,7 +56,7 @@ function getPost(slug) {
       <PostItem :postitem="itm" />
     </div>
   </main>
-  <main v-else>
+  <main v-else class="loading">
     <img alt="loading" src="@/assets/ox2-flow.gif" width="125" />
   </main>
 </template>

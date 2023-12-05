@@ -25,8 +25,7 @@ onMounted(() => {
   <main v-if="loaded">
     <PostItem :postitem="post" />
   </main>
-  <main v-else>
-    <h1>Post: {{ props.slug }}</h1>
+  <main v-else class="loading">
     <img alt="loading" src="@/assets/ox2-flow.gif" width="125" />
   </main>
 </template>
