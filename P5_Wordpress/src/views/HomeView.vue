@@ -1,5 +1,7 @@
 <script setup></script>
 
 <template>
-  <main>HomeView</main>
+  <main>HomeView<br />
+    <img alt="loading" src="@/assets/ox2-flow.gif" width="125" />
+  </main>
 </template>
