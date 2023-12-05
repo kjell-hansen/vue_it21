@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import APIService from '../services/APIService'
 import { useTagsStore } from '../stores/TagsStore'
 import PostItem from '../components/PostItem.vue'
@@ -11,8 +11,14 @@ const tags = computed(() => {
 })
 const posts = ref([])
 
+watch(props, async (newProp) => {
+  getPost(newProp.slug)
+})
 onMounted(() => {
-  APIService.get('posts?tags=' + tags.value.find((itm) => itm.slug === props.slug)?.id ?? 1).then(
+  getPost(props.slug)
+})
+function getPost(slug) {
+  APIService.get('posts?tags=' + tags.value.find((itm) => itm.slug === slug)?.id ?? 1).then(
     (response) => {
       posts.value = response.map((itm) => {
         let d = new Date(itm.date)
@@ -21,7 +27,7 @@ onMounted(() => {
       })
     }
   )
-})
+}
 </script>
 
 <template>

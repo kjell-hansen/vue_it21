@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useAuthorsStore } from '../stores/AuthorsStore'
 import APIService from '../services/APIService'
 import PostItem from '../components/PostItem.vue'
@@ -11,17 +11,23 @@ const authors = computed(() => {
 })
 const posts = ref([])
 
-onMounted(() => {
-  APIService.get(
-    'posts?author=' + authors.value.find((itm) => itm.slug === props.slug)?.id ?? 1
-  ).then((response) => {
-    posts.value = response.map((itm) => {
-      let d = new Date(itm.date)
-      itm.date = d.toLocaleDateString()
-      return itm
-    })
-  })
+watch(props, async (newProp) => {
+  getPost(newProp.slug)
 })
+onMounted(() => {
+  getPost(props.slug)
+})
+function getPost(slug) {
+  APIService.get('posts?author=' + authors.value.find((itm) => itm.slug === slug)?.id ?? 1).then(
+    (response) => {
+      posts.value = response.map((itm) => {
+        let d = new Date(itm.date)
+        itm.date = d.toLocaleDateString()
+        return itm
+      })
+    }
+  )
+}
 </script>
 
 <template>
